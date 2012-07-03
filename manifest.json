@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "chrome_url_overrides": {
+    "newtab": "home.html"
+  },
+  "description": "My newtab page",
+  "name": "Tekkub Newtab",
+  "permissions": [
+    "tabs",
+    "bookmarks",
+    "storage",
+    "https://api.github.com/gists",
+    "https://api.github.com/gist/*"
+  ],
+  "version": "0.4"
+}

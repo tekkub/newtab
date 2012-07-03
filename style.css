@@ -1,0 +1,95 @@
+body {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  background: url('img/wood-weatheredelm.jpeg');
+  font-size: 0;
+  color: white;
+}
+
+#settings-toggle {
+  font-size: 10px;
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  color: #ccc;
+}
+
+ul {
+  vertical-align: top;
+  list-style-type: none;
+  padding-left: 0;
+  margin: 16px 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 8px;
+  font-size: 14px;
+}
+
+li a {
+  display: block;
+  width: 78px;
+  height: 78px;
+  background-size: 100%;
+  opacity: 0.9;
+  background-image: url('img/custombg-silver.png');
+}
+
+li a:active {
+  background-position-y: 100%;
+}
+
+li a:hover {
+  opacity: 1;
+}
+
+li a img {
+  margin-top: 6px;
+  max-width: 66px;
+  max-height: 66px;
+}
+
+li a div {
+  position: relative;
+  top: 6px;
+  left: 6px;
+  background-size: 100%;
+  width: 66px;
+  height: 66px;
+}
+
+li a div.dragover {
+  background: yellow !important;
+}
+
+li .settings {
+  display: none;
+}
+
+li .settings label, li .settings select, li .settings input.img-url {
+  display: block;
+}
+
+li .settings input.img-url {
+  width: 80px;
+}
+
+li .settings label input {
+  vertical-align: -5px;
+  margin-left: 10px;
+}
+
+
+.black       { background-image: url('img/custombg-black.png') }
+.blue        { background-image: url('img/custombg-blue.png') }
+.bright-blue { background-image: url('img/custombg-bright-blue.png') }
+.green       { background-image: url('img/custombg-green.png') }
+.orange      { background-image: url('img/custombg-orange.png') }
+.pink        { background-image: url('img/custombg-pink.png') }
+.purple      { background-image: url('img/custombg-purple.png') }
+.red         { background-image: url('img/custombg-red.png') }
+.yellow      { background-image: url('img/custombg-yellow.png') }
