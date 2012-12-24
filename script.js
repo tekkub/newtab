@@ -69,6 +69,7 @@
   };
 
   saveBookmarkData = function(key, data) {
+    data.objectId = nil;
     console.log("New data", data);
     return $.parse.post('bookmarks', data, function(json) {
       console.log("Saved to parse", json);
