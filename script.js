@@ -2,6 +2,12 @@
 (function() {
   var colors, getBookmarkData, injectBookmark, loadingParse, renderLinks, saveBookmarkData, syncdata;
 
+  if (localStorage['db-version'] !== 2) {
+    console.log('Resetting localStorage');
+    localStorage.clear();
+    localStorage['db-version'] = 2;
+  }
+
   syncdata = null;
 
   loadingParse = false;
@@ -97,6 +103,11 @@
       return false;
     });
   };
+
+  $('#purge-storage').click(function() {
+    localStorage.clear();
+    return false;
+  });
 
   $('#settings-toggle').click(function() {
     $('.settings').toggle();
