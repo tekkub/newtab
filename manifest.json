@@ -11,5 +11,5 @@
     "storage",
     "https://api.parse.com/*"
   ],
-  "version": "0.17"
+  "version": "0.18"
 }

@@ -74,8 +74,10 @@ getBookmarkData = (bookmark) ->
 
 
 saveBookmarkData = (key, data) ->
-  data.id = null
-  data.objectId = null
+  delete data.id
+  delete data.objectId
+  delete data.createdAt
+  delete data.updatedAt
   console.log "New data", data
   $.parse.post 'bookmarks', data, (json) ->
     console.log("Saved to parse", json)
