@@ -1,8 +1,8 @@
 
-unless localStorage['db-version'] == 2
+unless localStorage['db-version'] == '2'
   console.log 'Resetting localStorage'
   localStorage.clear()
-  localStorage['db-version'] = 2
+  localStorage['db-version'] = '2'
 
 syncdata = null
 loadingParse = false
