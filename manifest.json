@@ -12,5 +12,5 @@
     "https://api.github.com/gists",
     "https://api.github.com/gist/*"
   ],
-  "version": "0.4"
+  "version": "0.7"
 }
