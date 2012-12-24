@@ -74,6 +74,7 @@ getBookmarkData = (bookmark) ->
 
 
 saveBookmarkData = (key, data) ->
+  data.objectId = nil
   console.log "New data", data
   $.parse.post 'bookmarks', data, (json) ->
     console.log("Saved to parse", json)
