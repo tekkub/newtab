@@ -1,5 +1,8 @@
 
+# localStorage.clear()
+
 syncdata = null
+loadingParse = false
 colors = [
   'silver'
   'black'
@@ -11,6 +14,10 @@ colors = [
   'red'
   'pink'
 ]
+
+$.parse.init
+  app_id: "xUAcXfMivxbjqOhtLuX9e0Nz7zO0aL0ieq93swiN"
+  rest_key: "tbVr6U9goimUx4m0LHE5B24MtibdCYqiTlSnKyk2"
 
 
 injectBookmark = (bookmark) ->
@@ -51,34 +58,24 @@ getBookmarkData = (bookmark) ->
     return data
 
   else
-    $.ajax
-      url: "https://api.github.com/gists/#{hash}"
-      type: 'GET'
-      success: (data, textStatus, jqXHR) ->
-        console.log("Gist received #{hash}", data)
-        localStorage[hash] = data['files']['sync.json']['content']
-        injectBookmark(bookmark)
+    unless loadingParse
+      loadingParse = true
+      $.parse.get 'bookmarks', (data) ->
+        for entry in data.results
+          console.log "Parse data received #{entry.objectId}", entry
+          localStorage[entry.objectId] = JSON.stringify entry
+          injectBookmark(bookmark)
+          loadingParse = false
+
     return default_data
 
 
 saveBookmarkData = (key, data) ->
-  content = JSON.stringify(data)
-  $.ajax
-    url: 'https://api.github.com/gists'
-    type: 'POST'
-    dataType: 'json'
-    data: JSON.stringify
-      'description': 'tek newtab sync data'
-      'public': false
-      'files': {
-        'sync.json': {
-          'content': content
-        }
-      }
-    success: (data, textStatus, jqXHR) ->
-      console.log("gisted", data)
-      chrome.bookmarks.update(key, {title: data.id})
-      localStorage[data.id] = content
+  console.log "New data", data
+  $.parse.post 'bookmarks', data, (json) ->
+    console.log("Saved to parse", json)
+    chrome.bookmarks.update(key, {title: json.objectId})
+    localStorage[json.objectId] = JSON.stringify(data)
 
 
 renderLinks = (data) ->
@@ -107,7 +104,7 @@ $('#settings-toggle').click ->
   return false
 
 chrome.storage.sync.get null, (data) ->
-  console.log(data)
+  console.log("Sync get", data)
   syncdata = data
 
   newdata = []

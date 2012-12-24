@@ -9,8 +9,7 @@
     "tabs",
     "bookmarks",
     "storage",
-    "https://api.github.com/gists",
-    "https://api.github.com/gist/*"
+    "https://api.parse.com/*"
   ],
-  "version": "0.7"
+  "version": "0.8"
 }
