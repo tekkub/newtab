@@ -5,7 +5,6 @@ unless localStorage['db-version'] == '2'
   localStorage['db-version'] = '2'
 
 syncdata = null
-loadingParse = false
 colors = [
   'silver'
   'black'
@@ -61,14 +60,11 @@ getBookmarkData = (bookmark) ->
     return data
 
   else
-    unless loadingParse
-      loadingParse = true
-      $.parse.get 'bookmarks', (data) ->
-        for entry in data.results
-          console.log "Parse data received #{entry.objectId}", entry
-          localStorage[entry.objectId] = JSON.stringify entry
-          injectBookmark(bookmark)
-          loadingParse = false
+    $.parse.get 'bookmarks', where: {objectId: hash}, (data) ->
+      for entry in data.results
+        console.log "Parse data received #{entry.objectId}", entry
+        localStorage[entry.objectId] = JSON.stringify entry
+        injectBookmark(bookmark)
 
     return default_data
 
