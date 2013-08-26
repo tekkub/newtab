@@ -133,10 +133,6 @@ chrome.storage.sync.get null, (data) ->
       $('body').append row
 
       $.each subtree.children, (i,bookmark) ->
-        li = $('<li>')
-          .attr('id', "bookmark-#{bookmark.id}")
-        row.append li
-
         link = $('<a>')
           .click (e) ->
             if link.data('pinned')
@@ -154,6 +150,8 @@ chrome.storage.sync.get null, (data) ->
 
               return false
         li.append link
+        butt = new Button bookmark
+        li = butt.getListItem
 
         key = bookmark.id
         img_div = $('<div>')
