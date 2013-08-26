@@ -1,7 +1,15 @@
 class Button
+  @_buttons = {}
+  @find: (id) ->
+    @_buttons[id]
+
+
   constructor: (@bookmark) ->
+    Button._buttons[bookmark.id] = this
+
     @li = $('<li>')
     @li.attr('id', "bookmark-#{bookmark.id}")
+
     @render()
 
 

@@ -24,7 +24,8 @@ $.parse.init
 
 injectBookmark = (bookmark) ->
   settings = getBookmarkData(bookmark)
-  li = $("#bookmark-#{bookmark.id}")
+  butt = Button.find bookmark.id
+  li = butt.li
 
   link = li.children('a')
   link.data('bookmarkid', bookmark.id)
