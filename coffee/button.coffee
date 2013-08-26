@@ -12,7 +12,6 @@ class Button
 
     @link = $('<a>')
       .click @onClick
-    @li.append @link
 
     @img_div = $('<div>')
       .attr('class', 'link-image')
@@ -21,6 +20,7 @@ class Button
       .bind('dragover', @onDragOver)
       .bind('drop', @onDrop)
 
+    @li.append @link
     @link.append @img_div
 
 
