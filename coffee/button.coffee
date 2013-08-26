@@ -8,10 +8,10 @@ class Button
     Button._buttons[bookmark.id] = this
 
     @li = $('<li>')
-    @li.attr('id', "bookmark-#{bookmark.id}")
+      .attr('id', "bookmark-#{bookmark.id}")
 
     @link = $('<a>')
-    @link.click @onClick
+      .click @onClick
     @li.append @link
 
     @img_div = $('<div>')
