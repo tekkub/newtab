@@ -20,22 +20,7 @@ class Button
 
   renderLink: ->
     @link = $('<a>')
-    @link.click (e) ->
-      if @link.data('pinned')
-        if e.which == 1 && !e.metaKey && !e.shiftKey
-          # We have a normal click, pin this tab
-          chrome.tabs.getCurrent (tab) ->
-            chrome.tabs.update tab.id, {'pinned': true}
-          return
-
-        # Mod-click or middle, don't lose focus or kill this tab
-        chrome.tabs.create
-          'pinned': true
-          'selected': false
-          'url': $(this).attr("href")
-
-        return false
-
+    @link.click @onClick
     @li.append @link
 
 
@@ -48,6 +33,23 @@ class Button
       .bind('drop', @onDrop)
 
     @link.append @img_div
+
+
+  onClick: (event) ->
+    if $(this).data('pinned')
+      if event.which == 1 && !event.metaKey && !event.shiftKey
+        # We have a normal click, pin this tab
+        chrome.tabs.getCurrent (tab) ->
+          chrome.tabs.update tab.id, {'pinned': true}
+        return
+
+      # Mod-click or middle, don't lose focus or kill this tab
+      chrome.tabs.create
+        'pinned': true
+        'selected': false
+        'url': $(this).attr("href")
+
+      return false
 
 
   onDragEnter: (event) ->
