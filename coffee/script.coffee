@@ -134,55 +134,10 @@ chrome.storage.sync.get null, (data) ->
 
       $.each subtree.children, (i,bookmark) ->
         butt = new Button bookmark
-        li = butt.getListItem
-        link = li.child('a')
+        li = butt.getListItem()
+        link = butt.getLink()
 
-        key = bookmark.id
-        img_div = $('<div>')
-          .attr('class', 'link-image')
-          .bind 'drop', (ev) ->
-            dt = ev.originalEvent.dataTransfer
-
-            target_img = $(ev.target)
-            target_img.removeClass('dragover')
-
-            return true if dt.types[0] != "Files"
-            if dt.files.length != 1
-              ev.stopPropagation()
-              return false
-
-            file = dt.files[0]
-
-            if file.type.indexOf("image") == 0
-              reader = new FileReader()
-              reader.onload = (e) ->
-                imgsrc = e.target.result
-                target_img.css("background", "url(#{imgsrc})")
-                  .css('background-size', "100%")
-
-                chrome.bookmarks.get key, (bookmark) ->
-                  bookmark_data = getBookmarkData(bookmark[0])
-                  bookmark_data['rawimg'] = imgsrc
-                  saveBookmarkData(key, bookmark_data)
-
-              reader.readAsDataURL(file)
-
-            ev.stopPropagation()
-            return false
-
-          .bind 'dragenter', (ev) ->
-            # Update the drop zone class on drag enter/leave
-            $(ev.target).addClass('dragover')
-            return false
-
-          .bind 'dragleave', (ev) ->
-            $(ev.target).removeClass('dragover')
-            return false
-
-          .bind 'dragover', (ev) ->
-            # Allow drops of any kind into the zone.
-            return false
-        link.append img_div
+        row.append li
 
         setting_div = $('<div>')
           .attr('class', 'settings')
