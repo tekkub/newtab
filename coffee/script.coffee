@@ -26,8 +26,8 @@ injectBookmark = (bookmark) ->
   settings = getBookmarkData(bookmark)
   butt = Button.find bookmark.id
   li = butt.li
+  link = butt.link
 
-  link = li.children('a')
   link.data('bookmarkid', bookmark.id)
     .attr('href', bookmark.url)
     .attr('class', settings["color"])
@@ -135,8 +135,8 @@ chrome.storage.sync.get null, (data) ->
 
       $.each subtree.children, (i,bookmark) ->
         butt = new Button bookmark
-        li = butt.getListItem()
-        link = butt.getLink()
+        li = butt.li
+        link = butt.link
 
         row.append li
 

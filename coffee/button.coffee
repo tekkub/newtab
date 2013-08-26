@@ -13,14 +13,6 @@ class Button
     @render()
 
 
-  getListItem: ->
-    return @li
-
-
-  getLink: ->
-    return @link
-
-
   render: ->
     @renderLink()
     @renderImageDiv()
