@@ -10,21 +10,10 @@ class Button
     @li = $('<li>')
     @li.attr('id', "bookmark-#{bookmark.id}")
 
-    @render()
-
-
-  render: ->
-    @renderLink()
-    @renderImageDiv()
-
-
-  renderLink: ->
     @link = $('<a>')
     @link.click @onClick
     @li.append @link
 
-
-  renderImageDiv: ->
     @img_div = $('<div>')
       .attr('class', 'link-image')
       .bind('dragenter', @onDragEnter)
