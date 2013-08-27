@@ -31,18 +31,6 @@ injectBookmark = (bookmark) ->
     .attr('checked', settings["pinned"])
 
 
-saveBookmarkData = (key, data) ->
-  delete data.id
-  delete data.objectId
-  delete data.createdAt
-  delete data.updatedAt
-  console.log "New data", data
-  $.parse.post 'bookmarks', data, (json) ->
-    console.log("Saved to parse", json)
-    chrome.bookmarks.update(key, {title: json.objectId})
-    localStorage[json.objectId] = JSON.stringify(data)
-
-
 pinThisTab = ->
   chrome.tabs.getCurrent (tab) ->
     chrome.tabs.update tab.id, {'pinned': true}
