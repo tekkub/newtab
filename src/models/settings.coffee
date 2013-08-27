@@ -23,6 +23,18 @@ class Settings
     settings.fetch()
 
 
+  @save = (id, data) ->
+    delete data.id
+    delete data.objectId
+    delete data.createdAt
+    delete data.updatedAt
+    console.log "New data", data
+    $.parse.post 'bookmarks', data, (json) ->
+      console.log("Saved to parse", json)
+      chrome.bookmarks.update(id, {title: json.objectId})
+      localStorage[json.objectId] = JSON.stringify(data)
+
+
   constructor: (@bookmark) ->
 
 

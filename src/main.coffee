@@ -110,7 +110,7 @@ chrome.storage.sync.get null, (data) ->
 
           settings = Settings.fetch bookmark
           settings['color'] = val
-          saveBookmarkData(bookmark.id, settings)
+          Settings.save(bookmark.id, settings)
 
 
         pin_check.attr('checked', syncdata["pinned-#{bookmark.url}"])
@@ -120,7 +120,7 @@ chrome.storage.sync.get null, (data) ->
 
           settings = Settings.fetch bookmark
           settings['pinned'] = checked
-          saveBookmarkData(bookmark.id, settings)
+          Settings.save(bookmark.id, settings)
 
 
         injectBookmark(bookmark)
