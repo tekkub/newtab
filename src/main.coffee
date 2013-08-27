@@ -1,7 +1,6 @@
 
 Settings.initialize
 
-syncdata = null
 
 $.parse.init
   app_id: "xUAcXfMivxbjqOhtLuX9e0Nz7zO0aL0ieq93swiN"
@@ -20,9 +19,7 @@ $('#settings-toggle').click ->
 
 chrome.storage.sync.get null, (data) ->
   console.log("Sync get", data)
-  syncdata = data
 
-  newdata = []
   chrome.bookmarks.getTree (tree) ->
     mytree = null
     $.each tree[0].children[1].children, (i,subtree) ->
