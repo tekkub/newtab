@@ -2,17 +2,6 @@
 Settings.initialize
 
 syncdata = null
-colors = [
-  'silver'
-  'black'
-  'purple'
-  'blue'
-  'green'
-  'yellow'
-  'orange'
-  'red'
-  'pink'
-]
 
 $.parse.init
   app_id: "xUAcXfMivxbjqOhtLuX9e0Nz7zO0aL0ieq93swiN"
