@@ -1,4 +1,16 @@
 class Settings
+  @COLORS = [
+    'silver'
+    'black'
+    'purple'
+    'blue'
+    'green'
+    'yellow'
+    'orange'
+    'red'
+    'pink'
+  ]
+
   @initialize: ->
     unless localStorage['db-version'] == '2'
       console.log 'Resetting localStorage'

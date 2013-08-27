@@ -109,20 +109,11 @@ chrome.storage.sync.get null, (data) ->
         butt = new Button bookmark
         li = butt.li
         link = butt.link
+        color_select = butt.color_select
+        pin_check = butt.pin_check
 
         row.append li
 
-        setting_div = $('<div>')
-          .attr('class', 'settings')
-        li.append setting_div
-
-        color_select = $('<select>')
-        setting_div.append color_select
-
-        for color in colors
-          opt = $('<option>')
-            .text(color)
-          color_select.append opt
 
         color_select.change ->
           val = $(this).val()
@@ -132,23 +123,16 @@ chrome.storage.sync.get null, (data) ->
           settings['color'] = val
           saveBookmarkData(bookmark.id, settings)
 
-        pin_label = $('<label>')
-          .text('Pinned')
-          .attr('class', 'pinlabel')
-        setting_div.append pin_label
 
-        pin_check = $('<input>')
-          .attr('type', 'checkbox')
-          .attr('checked', syncdata["pinned-#{bookmark.url}"])
-          .change ->
-            checked = $(this).attr('checked') == 'checked'
-            link.data('pinned', checked)
+        pin_check.attr('checked', syncdata["pinned-#{bookmark.url}"])
+        pin_check.change ->
+          checked = $(this).attr('checked') == 'checked'
+          link.data('pinned', checked)
 
-            settings = Settings.fetch bookmark
-            settings['pinned'] = checked
-            saveBookmarkData(bookmark.id, settings)
+          settings = Settings.fetch bookmark
+          settings['pinned'] = checked
+          saveBookmarkData(bookmark.id, settings)
 
-        pin_label.append pin_check
 
         injectBookmark(bookmark)
 

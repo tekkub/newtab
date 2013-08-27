@@ -20,8 +20,28 @@ class Button
       .bind('dragover', @onDragOver)
       .bind('drop', @onDrop)
 
+    @setting_div = $('<div>')
+      .attr('class', 'settings')
+
+    @color_select = $('<select>')
+    for color in Settings.COLORS
+      opt = $('<option>')
+        .text(color)
+      @color_select.append opt
+
+    @pin_label = $('<label>')
+      .text('Pinned')
+      .attr('class', 'pinlabel')
+
+    @pin_check = $('<input>')
+      .attr('type', 'checkbox')
+
     @li.append @link
     @link.append @img_div
+    @li.append @setting_div
+    @setting_div.append @color_select
+    @setting_div.append @pin_label
+    @pin_label.append @pin_check
 
 
   onClick: (event) ->
