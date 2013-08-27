@@ -108,9 +108,8 @@ chrome.storage.sync.get null, (data) ->
           val = $(this).val()
           link.attr('class', val)
 
-          settings = Settings.fetch bookmark
-          settings['color'] = val
-          Settings.save(bookmark.id, settings)
+          settings = new Settings bookmark
+          settings.save 'color', val
 
 
         pin_check.attr('checked', syncdata["pinned-#{bookmark.url}"])
@@ -118,9 +117,8 @@ chrome.storage.sync.get null, (data) ->
           checked = $(this).attr('checked') == 'checked'
           link.data('pinned', checked)
 
-          settings = Settings.fetch bookmark
-          settings['pinned'] = checked
-          Settings.save(bookmark.id, settings)
+          settings = new Settings bookmark
+          settings.save 'pinned', checked
 
 
         injectBookmark(bookmark)

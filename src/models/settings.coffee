@@ -23,18 +23,6 @@ class Settings
     settings.fetch()
 
 
-  @save = (id, data) ->
-    delete data.id
-    delete data.objectId
-    delete data.createdAt
-    delete data.updatedAt
-    console.log "New data", data
-    $.parse.post 'bookmarks', data, (json) ->
-      console.log("Saved to parse", json)
-      chrome.bookmarks.update(id, {title: json.objectId})
-      localStorage[json.objectId] = JSON.stringify(data)
-
-
   constructor: (@bookmark) ->
 
 
@@ -68,3 +56,18 @@ class Settings
         console.log "Parse data received #{entry.objectId}", entry
         localStorage[entry.objectId] = JSON.stringify entry
         injectBookmark(@bookmark)
+
+
+  save: (key, value) ->
+    data = @fetch()
+    data[key] = value
+
+    delete data.id
+    delete data.objectId
+    delete data.createdAt
+    delete data.updatedAt
+    console.log "New data", data
+    $.parse.post 'bookmarks', data, (json) =>
+      console.log("Saved to parse", json)
+      chrome.bookmarks.update(@bookmark.id, {title: json.objectId})
+      localStorage[json.objectId] = JSON.stringify(data)
