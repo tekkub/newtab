@@ -5,10 +5,14 @@ class Button
 
 
   constructor: (@bookmark) ->
-    Button._buttons[bookmark.id] = this
+    Button._buttons[@bookmark.id] = this
+    @generateElements()
+    @applySettings()
 
+
+  generateElements: ->
     @li = $('<li>')
-      .attr('id', "bookmark-#{bookmark.id}")
+      .attr('id', "bookmark-#{@bookmark.id}")
 
     @link = $('<a>')
       .click @onClick
@@ -124,3 +128,17 @@ class Button
     event.stopPropagation()
     return false
 
+
+  applySettings: ->
+    settings = new Settings @bookmark
+
+    @link.attr('href', @bookmark.url)
+      .attr('class', settings.read 'color')
+      .data('pinned', settings.read 'pinned')
+
+    @img_div.attr('class', "link-image")
+      .css('background', "url(#{settings.read 'rawimg'})")
+      .css('background-size', "100%")
+
+    @color_select.val(settings.read 'color')
+    @pin_check.attr('checked', settings.read 'pinned')

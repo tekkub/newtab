@@ -58,6 +58,11 @@ class Settings
         injectBookmark(@bookmark)
 
 
+  read: (key) ->
+    data = @fetch()
+    data[key]
+
+
   save: (key, value) ->
     data = @fetch()
     data[key] = value
