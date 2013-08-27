@@ -31,33 +31,6 @@ injectBookmark = (bookmark) ->
     .attr('checked', settings["pinned"])
 
 
-pinThisTab = ->
-  chrome.tabs.getCurrent (tab) ->
-    chrome.tabs.update tab.id, {'pinned': true}
-
-
-pinnedOnClick = (element) ->
-  if element.which == 1 && !element.metaKey && !element.shiftKey
-    # We have a normal click, pin this tab
-    pinThisTab()
-    return
-
-  # Mod-click or middle, don't lose focus or kill this tab
-  chrome.tabs.create
-    'pinned': true
-    'selected': false
-    'url': $(this).attr("href")
-
-  return false
-
-
-renderLinks = (data) ->
-  template = Handlebars.compile($("#links-template").html())
-  html     = template({rows: data})
-  $('#links').html html
-  $("a[data-pinned='true']").click pinnedOnClick
-
-
 $('#purge-storage').click ->
   localStorage.clear()
   return false
