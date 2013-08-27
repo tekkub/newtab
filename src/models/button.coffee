@@ -96,7 +96,7 @@ class Button
     return false
 
 
-  onDrop: (event) ->
+  onDrop: (event) =>
     dt = event.originalEvent.dataTransfer
 
     target_img = $(event.target)
@@ -111,16 +111,13 @@ class Button
 
     if file.type.indexOf("image") == 0
       reader = new FileReader()
-      reader.onload = (e) ->
+      reader.onload = (e) =>
         imgsrc = e.target.result
         target_img.css("background", "url(#{imgsrc})")
           .css('background-size', "100%")
 
-        key = @bookmark.id
-        chrome.bookmarks.get key, (bookmark) ->
-          bookmark_data = getBookmarkData(bookmark[0])
-          bookmark_data['rawimg'] = imgsrc
-          saveBookmarkData(key, bookmark_data)
+        settings = new Settings @bookmark
+        settings.save 'rawimg', imgsrc
 
       reader.readAsDataURL(file)
 
