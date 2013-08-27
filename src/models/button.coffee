@@ -24,6 +24,8 @@ class Button
       .attr('class', 'settings')
 
     @color_select = $('<select>')
+      .change(@onColorChange)
+
     for color in Settings.COLORS
       opt = $('<option>')
         .text(color)
@@ -35,6 +37,7 @@ class Button
 
     @pin_check = $('<input>')
       .attr('type', 'checkbox')
+      .change(@onPinChange)
 
     @li.append @link
     @link.append @img_div
@@ -42,6 +45,22 @@ class Button
     @setting_div.append @color_select
     @setting_div.append @pin_label
     @pin_label.append @pin_check
+
+
+  onColorChange: (event) =>
+    val = $(event.target).val()
+    @link.attr('class', val)
+
+    settings = new Settings @bookmark
+    settings.save 'color', val
+
+
+  onPinChange: (event) =>
+    checked = $(event.target).attr('checked') == 'checked'
+    @link.data('pinned', checked)
+
+    settings = new Settings @bookmark
+    settings.save 'pinned', checked
 
 
   onClick: (event) ->

@@ -84,30 +84,7 @@ chrome.storage.sync.get null, (data) ->
 
       $.each subtree.children, (i,bookmark) ->
         butt = new Button bookmark
-        li = butt.li
-        link = butt.link
-        color_select = butt.color_select
-        pin_check = butt.pin_check
-
-        row.append li
-
-
-        color_select.change ->
-          val = $(this).val()
-          link.attr('class', val)
-
-          settings = new Settings bookmark
-          settings.save 'color', val
-
-
-        pin_check.attr('checked', syncdata["pinned-#{bookmark.url}"])
-        pin_check.change ->
-          checked = $(this).attr('checked') == 'checked'
-          link.data('pinned', checked)
-
-          settings = new Settings bookmark
-          settings.save 'pinned', checked
-
+        row.append butt.li
 
         injectBookmark(bookmark)
 
