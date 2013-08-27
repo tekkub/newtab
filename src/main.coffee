@@ -20,7 +20,7 @@ $.parse.init
 
 
 injectBookmark = (bookmark) ->
-  settings = getBookmarkData(bookmark)
+  settings = Settings.fetch bookmark
   butt = Button.find bookmark.id
   li = butt.li
   link = butt.link
@@ -40,31 +40,6 @@ injectBookmark = (bookmark) ->
     .val(settings['color'])
   setting_div.children('label.pinlabel').children('input')
     .attr('checked', settings["pinned"])
-
-
-getBookmarkData = (bookmark) ->
-  hash = bookmark.title
-  default_data = {
-    'id': bookmark.id,
-    'link': bookmark.url
-  }
-
-  return default_data if hash == ''
-
-  raw = localStorage[hash]
-  if raw
-    data = JSON.parse(raw)
-    data['id'] = bookmark.id
-    return data
-
-  else
-    $.parse.get 'bookmarks', where: {objectId: hash}, (data) ->
-      for entry in data.results
-        console.log "Parse data received #{entry.objectId}", entry
-        localStorage[entry.objectId] = JSON.stringify entry
-        injectBookmark(bookmark)
-
-    return default_data
 
 
 saveBookmarkData = (key, data) ->
@@ -153,7 +128,7 @@ chrome.storage.sync.get null, (data) ->
           val = $(this).val()
           link.attr('class', val)
 
-          settings = getBookmarkData(bookmark)
+          settings = Settings.fetch bookmark
           settings['color'] = val
           saveBookmarkData(bookmark.id, settings)
 
@@ -169,7 +144,7 @@ chrome.storage.sync.get null, (data) ->
             checked = $(this).attr('checked') == 'checked'
             link.data('pinned', checked)
 
-            settings = getBookmarkData(bookmark)
+            settings = Settings.fetch bookmark
             settings['pinned'] = checked
             saveBookmarkData(bookmark.id, settings)
 
