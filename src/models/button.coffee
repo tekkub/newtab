@@ -32,7 +32,6 @@ class Button
 
   generateElements: ->
     @li = $('<li>')
-      .attr('id', "bookmark-#{@bookmark.id}")
 
     @link = $('<a>')
       .click Button.onClick
@@ -81,7 +80,6 @@ class Button
 
   onPinChange: (event) =>
     checked = $(event.target).attr('checked') == 'checked'
-    @link.data('pinned', checked)
 
     settings = new Settings @bookmark
     settings.save 'pinned', checked
@@ -139,7 +137,6 @@ class Button
 
     @link.attr('href', @bookmark.url)
       .attr('class', settings.read 'color')
-      .data('pinned', settings.read 'pinned')
 
     @img_div.attr('class', "link-image")
       .css('background', "url(#{settings.read 'rawimg'})")
