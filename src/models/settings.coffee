@@ -19,10 +19,10 @@ class Settings
       localStorage['db-version'] = '2'
 
     dropbox = new Dropbox.Client dropboxCreds
-    dropbox.authenticate @_finishAuth
+    dropbox.authenticate @finishAuth
 
 
-  @_finishAuth: (error, client) ->
+  @finishAuth: (error, client) ->
     if error
       alert "Error authenticating: #{error}"
       return false
