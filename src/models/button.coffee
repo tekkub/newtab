@@ -4,6 +4,26 @@ class Button
     @_buttons[id]
 
 
+  @onClick: (event) ->
+    target = event.currentTarget
+    pinned = $(target).next().find(':checkbox')
+
+    if pinned.attr('checked') == 'checked'
+      if event.which == 1 && !event.metaKey && !event.shiftKey
+        # We have a normal click, pin this tab
+        chrome.tabs.getCurrent (tab) ->
+          chrome.tabs.update tab.id, {'pinned': true}
+        return
+
+      # Mod-click or middle, don't lose focus or kill this tab
+      chrome.tabs.create
+        'pinned': true
+        'selected': false
+        'url': $(target).attr("href")
+
+      return false
+
+
   constructor: (@bookmark) ->
     Button._buttons[@bookmark.id] = this
     @generateElements()
@@ -15,7 +35,7 @@ class Button
       .attr('id', "bookmark-#{@bookmark.id}")
 
     @link = $('<a>')
-      .click @onClick
+      .click Button.onClick
 
     @img_div = $('<div>')
       .attr('class', 'link-image')
@@ -65,23 +85,6 @@ class Button
 
     settings = new Settings @bookmark
     settings.save 'pinned', checked
-
-
-  onClick: (event) ->
-    if $(this).data('pinned')
-      if event.which == 1 && !event.metaKey && !event.shiftKey
-        # We have a normal click, pin this tab
-        chrome.tabs.getCurrent (tab) ->
-          chrome.tabs.update tab.id, {'pinned': true}
-        return
-
-      # Mod-click or middle, don't lose focus or kill this tab
-      chrome.tabs.create
-        'pinned': true
-        'selected': false
-        'url': $(this).attr("href")
-
-      return false
 
 
   onDragEnter: (event) ->
