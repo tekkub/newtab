@@ -22,7 +22,6 @@ Settings.initialize
   key: 'f0nb7har6a4aar0'
   ->
     console.log 'Loading dropbox data'
-    # $('#cached-rows').remove()
 
     chrome.bookmarks.getTree (tree) ->
       mytree = null
