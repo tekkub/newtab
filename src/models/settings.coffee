@@ -23,15 +23,31 @@ class Settings
       console.log err.response.error
       alert 'Dropbox error!  See javascript console for details.'
 
-    dropbox.authenticate @finishAuth
+    dropbox.authenticate interactive: false, (err, client) ->
+      if err
+        alert "Error authenticating: #{err}"
+        return false
+
+      if client.isAuthenticated()
+        console.log 'Cached auth loaded'
+        Settings.finishAuth client
+      else
+        console.log 'Triggering interactive login'
+        dropbox.authenticate (err, client) ->
+          if err
+            alert "Error authenticating: #{err}"
+            return false
+
+          if client.isAuthenticated()
+            Settings.finishAuth client
+          else
+            alert "Dropbox is not authed!"
+            return false
 
 
-  @finishAuth: (error, client) ->
-    if error
-      alert "Error authenticating: #{error}"
-      return false
-
+  @finishAuth: (client) ->
     datastoreManager = client.getDatastoreManager()
+    console.log 'Requesting datastore'
     datastoreManager.openDefaultDatastore (error, datastore) ->
       if error
         alert "Error opening default datastore: #{error}"
