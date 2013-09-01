@@ -18,20 +18,15 @@ $('#settings-toggle').click ->
   return false
 
 
-chrome.storage.sync.get null, (data) ->
-  console.log("Sync get", data)
+chrome.bookmarks.getTree (tree) ->
+  mytree = null
+  $.each tree[0].children[1].children, (i,subtree) ->
+    mytree = subtree if subtree.title == 'newtab'
 
-  chrome.bookmarks.getTree (tree) ->
-    mytree = null
-    $.each tree[0].children[1].children, (i,subtree) ->
-      mytree = subtree if subtree.title == 'newtab'
+  $.each mytree.children, (i,subtree) ->
+    row = $('<ul>')
+    $('body').append row
 
-    $.each mytree.children, (i,subtree) ->
-      row = $('<ul>')
-      $('body').append row
-
-      $.each subtree.children, (i,bookmark) ->
-        butt = new Button bookmark
-        row.append butt.li
-
-
+    $.each subtree.children, (i,bookmark) ->
+      butt = new Button bookmark
+      row.append butt.li
