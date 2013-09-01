@@ -11,12 +11,27 @@ class Settings
     'pink'
   ]
 
-  @initialize: ->
+  @initialize: (dropboxCreds) ->
     unless localStorage['db-version'] == '2'
       console.log 'Resetting localStorage'
       localStorage.clear()
       localStorage['db-version'] = '2'
 
+    dropbox = new Dropbox.Client dropboxCreds
+    dropbox.authenticate @_finishAuth
+
+
+  @_finishAuth: (error, client) ->
+    if error
+      alert "Error authenticating: #{error}"
+      return false
+
+    datastoreManager = client.getDatastoreManager()
+    datastoreManager.openDefaultDatastore (error, datastore) ->
+      if error
+        alert "Error opening default datastore: #{error}"
+        return false
+      console.log 'dropbox datastore loaded', datastore
 
   @fetch: (bookmark) ->
     settings = new Settings bookmark

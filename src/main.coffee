@@ -1,5 +1,6 @@
 
 Settings.initialize
+  key: 'f0nb7har6a4aar0'
 
 
 $.parse.init
@@ -33,21 +34,4 @@ chrome.storage.sync.get null, (data) ->
         butt = new Button bookmark
         row.append butt.li
 
-dropbox = new Dropbox.Client
-  key: 'f0nb7har6a4aar0'
 
-if dropbox.isAuthenticated()
-  console.log 'Dropbox auth successful'
-else
-  console.log 'Dropbox not authed'
-  dropbox.authenticate (error, client) ->
-    if error
-      alert "Error authenticating: #{error}"
-      return false
-
-    datastoreManager = dropbox.getDatastoreManager()
-    datastoreManager.openDefaultDatastore (error, datastore) ->
-      if error
-        alert "Error opening default datastore: #{error}"
-        return false
-      console.log datastore
