@@ -11,7 +11,8 @@ class Settings
     'pink'
   ]
 
-  @initialize: (dropboxCreds) ->
+  @initialize: (dropboxCreds, callback) ->
+    Settings._initCallback = callback
     unless localStorage['db-version'] == '2'
       console.log 'Resetting localStorage'
       localStorage.clear()
@@ -31,7 +32,11 @@ class Settings
       if error
         alert "Error opening default datastore: #{error}"
         return false
+
       console.log 'dropbox datastore loaded', datastore
+
+      Settings._initCallback()
+
 
   @fetch: (bookmark) ->
     settings = new Settings bookmark
