@@ -9,6 +9,14 @@ body {
   color: white;
 }
 
+#username {
+  font-size: 10px;
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  color: #ccc;
+}
+
 #settings-toggle {
   font-size: 10px;
   position: fixed;

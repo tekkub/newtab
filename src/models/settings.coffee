@@ -46,6 +46,9 @@ class Settings
 
 
   @finishAuth: (client) ->
+    client.getAccountInfo (err, data) ->
+      $('#username').text("#{data['name']} <#{data['email']}>")
+
     datastoreManager = client.getDatastoreManager()
     console.log 'Requesting datastore'
     datastoreManager.openDefaultDatastore (error, datastore) ->
@@ -53,7 +56,7 @@ class Settings
         alert "Error opening default datastore: #{error}"
         return false
 
-      console.log 'dropbox datastore loaded'
+      console.log 'Dropbox datastore loaded'
 
       Settings.datastore = datastore
       Settings.bookmarks = datastore.getTable 'bookmarks-dev'
