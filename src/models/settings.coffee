@@ -37,7 +37,7 @@ class Settings
         alert "Error opening default datastore: #{error}"
         return false
 
-      console.log 'dropbox datastore loaded', datastore
+      console.log 'dropbox datastore loaded'
 
       Settings.datastore = datastore
       Settings.bookmarks = datastore.getTable 'bookmarks-dev'
