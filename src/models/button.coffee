@@ -113,7 +113,9 @@ class Button
 
     file = dt.files[0]
 
-    if file.type.indexOf("image") == 0
+    if file.size > (70 * 1024)
+      alert 'That file is too big!'
+    else if file.type.indexOf("image") == 0
       reader = new FileReader()
       reader.onload = (e) =>
         imgsrc = e.target.result
