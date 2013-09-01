@@ -46,24 +46,14 @@ class Settings
 
 
   constructor: (@bookmark) ->
-
-
-  fetchFromDropbox: ->
     rows = Settings.bookmarks.query
       legacyID: @bookmark.title
-
-    if rows[1]
-      alert "Duplicate entries found for '#{@bookmark.title}'"
-      nil
-    else
-      rows[0]
+    @record = rows[0]
 
 
   read: (key) ->
-    db = @fetchFromDropbox()
-    db.get key
+    @record.get key
 
 
   save: (key, value) ->
-    db = @fetchFromDropbox()
-    db.set key, value
+    @record.set key, value
