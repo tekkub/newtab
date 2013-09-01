@@ -19,6 +19,10 @@ class Settings
       localStorage['db-version'] = '2'
 
     dropbox = new Dropbox.Client dropboxCreds
+    dropbox.onError.addListener (err) ->
+      console.log err.response.error
+      alert 'Dropbox error!  See javascript console for details.'
+
     dropbox.authenticate @finishAuth
 
 
