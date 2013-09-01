@@ -1,9 +1,4 @@
 
-$.parse.init
-  app_id: "xUAcXfMivxbjqOhtLuX9e0Nz7zO0aL0ieq93swiN"
-  rest_key: "tbVr6U9goimUx4m0LHE5B24MtibdCYqiTlSnKyk2"
-
-
 $('#purge-storage').click ->
   localStorage.clear()
   return false
