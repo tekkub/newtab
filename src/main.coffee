@@ -42,3 +42,5 @@ Settings.initialize
 
       localStorage['cachedRows'] = rows
       $('#cached-rows').remove()
+      $('#settings-toggle').show()
+      $('#syncing').remove()

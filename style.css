@@ -17,7 +17,16 @@ body {
   color: #ccc;
 }
 
+#syncing {
+  font-size: 10px;
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  color: #3c3;
+}
+
 #settings-toggle {
+  display: none;
   font-size: 10px;
   position: fixed;
   top: 5px;
