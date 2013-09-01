@@ -73,6 +73,17 @@ class Settings
       @default_data()
 
 
+  fetchFromDropbox: ->
+    rows = Settings.bookmarks.query
+      legacyID: @hash()
+
+    if rows[1]
+      alert "Duplicate entries found for '#{@hash()}'"
+      nil
+    else
+      rows[0]
+
+
   fetchFromParse: ->
     $.parse.get 'bookmarks', where: {objectId: @hash()}, (data) ->
       for entry in data.results
@@ -82,20 +93,10 @@ class Settings
 
 
   read: (key) ->
-    data = @fetch()
-    data[key]
+    db = @fetchFromDropbox()
+    db.get key
 
 
   save: (key, value) ->
-    data = @fetch()
-    data[key] = value
-
-    delete data.id
-    delete data.objectId
-    delete data.createdAt
-    delete data.updatedAt
-    console.log "New data", data
-    $.parse.post 'bookmarks', data, (json) =>
-      console.log("Saved to parse", json)
-      chrome.bookmarks.update(@bookmark.id, {title: json.objectId})
-      localStorage[json.objectId] = JSON.stringify(data)
+    db = @fetchFromDropbox()
+    db.set key, value
