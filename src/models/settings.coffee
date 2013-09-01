@@ -35,6 +35,9 @@ class Settings
 
       console.log 'dropbox datastore loaded', datastore
 
+      Settings.datastore = datastore
+      Settings.bookmarks = datastore.getTable 'bookmarks-dev'
+
       Settings._initCallback()
 
 
