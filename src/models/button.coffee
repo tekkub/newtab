@@ -34,7 +34,8 @@ class Button
     @li = $('<li>')
 
     @link = $('<a>')
-      .click Button.onClick
+      .click(Button.onClick)
+      .appendTo(@li)
 
     @img_div = $('<div>')
       .attr('class', 'link-image')
@@ -42,32 +43,30 @@ class Button
       .bind('dragleave', @onDragLeave)
       .bind('dragover', @onDragOver)
       .bind('drop', @onDrop)
+      .appendTo(@link)
 
     @setting_div = $('<div>')
       .attr('class', 'settings')
+      .appendTo(@li)
 
     @color_select = $('<select>')
       .change(@onColorChange)
+      .appendTo(@setting_div)
 
     for color in Settings.COLORS
       opt = $('<option>')
         .text(color)
-      @color_select.append opt
+        .appendTo(@color_select)
 
     @pin_label = $('<label>')
       .text('Pinned')
       .attr('class', 'pinlabel')
+      .appendTo(@setting_div)
 
     @pin_check = $('<input>')
       .attr('type', 'checkbox')
       .change(@onPinChange)
-
-    @li.append @link
-    @link.append @img_div
-    @li.append @setting_div
-    @setting_div.append @color_select
-    @setting_div.append @pin_label
-    @pin_label.append @pin_check
+      .appendTo(@pin_label)
 
 
   onColorChange: (event) =>
