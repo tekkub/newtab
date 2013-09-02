@@ -76,14 +76,24 @@ class @Settings
         return false
 
       console.log 'Dropbox datastore loaded'
-      chrome.browserAction.setTitle title: 'Signed in'
-      chrome.browserAction.setBadgeText text: ''
-      client.getAccountInfo (err, data) ->
-        chrome.browserAction.setTitle
-          title: "Signed in as #{data.name} <#{data.email}>"
-
       Settings.datastore = datastore
       Settings.bookmarks = datastore.getTable 'bookmarks-dev'
+
+      Settings.onSyncStatusChanged()
+      datastore.recordsChanged.addListener Settings.onSyncStatusChanged
+      datastore.syncStatusChanged.addListener Settings.onSyncStatusChanged
+
+
+  @onSyncStatusChanged: ->
+    if Settings.datastore.getSyncStatus().uploading
+      chrome.browserAction.setTitle title: 'Syncing'
+      chrome.browserAction.setBadgeText text: '<=>'
+      chrome.browserAction.setBadgeBackgroundColor color: '#00F'
+    else
+      chrome.browserAction.setBadgeText text: ''
+      Settings.client.getAccountInfo (err, data) ->
+        chrome.browserAction.setTitle
+          title: "Signed in as #{data.name} <#{data.email}>"
 
 
   constructor: (@bookmark) ->
