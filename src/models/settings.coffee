@@ -18,6 +18,7 @@ class @Settings
       localStorage['db-version'] = '2'
 
     dropbox = new Dropbox.Client dropboxCreds
+    Settings.client = dropbox
     dropbox.onError.addListener (err) ->
       console.log err.response.error
       chrome.browserAction.setTitle title: 'Dropbox error'

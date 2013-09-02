@@ -9,6 +9,12 @@ $('#settings-toggle').click ->
   return false
 
 
+$('#dropbox-signout').click ->
+  chrome.runtime.getBackgroundPage (bg_window) ->
+    bg_window.Settings.client.signOut()
+  return false
+
+
 if localStorage['cachedRows']
   console.log 'Loading cached page'
   cachedRows = $('<div>')
