@@ -23,15 +23,18 @@ class @Settings
       console.log err.response.error
       chrome.browserAction.setTitle title: 'Dropbox error'
       chrome.browserAction.setBadgeText text: '!'
+      chrome.browserAction.setBadgeBackgroundColor color: '#F00'
       alert 'Dropbox error!  See javascript console for details.'
 
     chrome.browserAction.setTitle title: 'Signing in...'
     chrome.browserAction.setBadgeText text: '...'
+    chrome.browserAction.setBadgeBackgroundColor color: '#00F'
 
     dropbox.authenticate interactive: false, (err, client) ->
       if err
         chrome.browserAction.setTitle title: 'Dropbox error'
         chrome.browserAction.setBadgeText text: '!'
+        chrome.browserAction.setBadgeBackgroundColor color: '#F00'
         alert "Error authenticating: #{err}"
         return false
 
@@ -44,6 +47,7 @@ class @Settings
           if err
             chrome.browserAction.setTitle title: 'Dropbox error'
             chrome.browserAction.setBadgeText text: '!'
+            chrome.browserAction.setBadgeBackgroundColor color: '#F00'
             alert "Error authenticating: #{err}"
             return false
 
@@ -52,6 +56,7 @@ class @Settings
           else
             chrome.browserAction.setTitle title: 'Not signed in'
             chrome.browserAction.setBadgeText text: '?'
+            chrome.browserAction.setBadgeBackgroundColor color: '#FF0'
             alert "Dropbox is not authed!"
             return false
 
@@ -66,6 +71,7 @@ class @Settings
       if error
         chrome.browserAction.setTitle title: 'Dropbox error'
         chrome.browserAction.setBadgeText text: '!'
+        chrome.browserAction.setBadgeBackgroundColor color: '#F00'
         alert "Error opening default datastore: #{error}"
         return false
 
