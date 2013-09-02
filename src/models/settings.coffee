@@ -1,4 +1,4 @@
-class Settings
+class @Settings
   @COLORS = [
     'silver'
     'black'

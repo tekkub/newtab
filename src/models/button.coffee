@@ -1,4 +1,4 @@
-class Button
+class @Button
   @_buttons = {}
   @find: (id) ->
     @_buttons[id]
