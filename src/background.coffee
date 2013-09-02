@@ -1,3 +1,3 @@
 
 Settings.initialize
-  key: 'f0nb7har6a4aar0'
+  key: 'f5ioe6smobalg0t'
