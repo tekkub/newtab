@@ -20,6 +20,8 @@ class @Settings
     dropbox = new Dropbox.Client dropboxCreds
     dropbox.onError.addListener (err) ->
       console.log err.response.error
+      chrome.browserAction.setTitle title: 'Dropbox error'
+      chrome.browserAction.setBadgeText text: '!'
       alert 'Dropbox error!  See javascript console for details.'
 
     chrome.browserAction.setTitle title: 'Signing in...'
@@ -54,20 +56,24 @@ class @Settings
 
 
   @finishAuth: (client) ->
-    chrome.browserAction.setTitle title: 'Signed in'
-    chrome.browserAction.setBadgeText text: ''
-    client.getAccountInfo (err, data) ->
-      chrome.browserAction.setTitle
-        title: "Signed in as #{data.name} <#{data.email}>"
+    console.log 'Requesting datastore'
+    chrome.browserAction.setTitle title: 'Syncing'
+    chrome.browserAction.setBadgeText text: '<=>'
 
     datastoreManager = client.getDatastoreManager()
-    console.log 'Requesting datastore'
     datastoreManager.openDefaultDatastore (error, datastore) ->
       if error
+        chrome.browserAction.setTitle title: 'Dropbox error'
+        chrome.browserAction.setBadgeText text: '!'
         alert "Error opening default datastore: #{error}"
         return false
 
       console.log 'Dropbox datastore loaded'
+      chrome.browserAction.setTitle title: 'Signed in'
+      chrome.browserAction.setBadgeText text: ''
+      client.getAccountInfo (err, data) ->
+        chrome.browserAction.setTitle
+          title: "Signed in as #{data.name} <#{data.email}>"
 
       Settings.datastore = datastore
       Settings.bookmarks = datastore.getTable 'bookmarks-dev'
