@@ -26,6 +26,7 @@ class @Button
 
   constructor: (@bookmark) ->
     Button._buttons[@bookmark.id] = this
+    @settings = new Button.settings @bookmark
     @generateElements()
     @applySettings()
 
@@ -53,7 +54,7 @@ class @Button
       .change(@onColorChange)
       .appendTo(@setting_div)
 
-    for color in Settings.COLORS
+    for color in Button.settings.COLORS
       opt = $('<option>')
         .text(color)
         .appendTo(@color_select)
@@ -72,16 +73,12 @@ class @Button
   onColorChange: (event) =>
     val = $(event.target).val()
     @link.attr('class', val)
-
-    settings = new Settings @bookmark
-    settings.save 'color', val
+    @settings.save 'color', val
 
 
   onPinChange: (event) =>
     checked = $(event.target).attr('checked') == 'checked'
-
-    settings = new Settings @bookmark
-    settings.save 'pinned', checked
+    @settings.save 'pinned', checked
 
 
   onDragEnter: (event) ->
@@ -122,8 +119,7 @@ class @Button
         target_img.css("background", "url(#{imgsrc})")
           .css('background-size', "100%")
 
-        settings = new Settings @bookmark
-        settings.save 'rawimg', imgsrc
+        @settings.save 'rawimg', imgsrc
 
       reader.readAsDataURL(file)
 
@@ -132,14 +128,12 @@ class @Button
 
 
   applySettings: ->
-    settings = new Settings @bookmark
-
     @link.attr('href', @bookmark.url)
-      .attr('class', settings.read 'color')
+      .attr('class', @settings.read 'color')
 
     @img_div.attr('class', "link-image")
-      .css('background', "url(#{settings.read 'rawimg'})")
+      .css('background', "url(#{@settings.read 'rawimg'})")
       .css('background-size', "100%")
 
-    @color_select.val(settings.read 'color')
-    @pin_check.attr('checked', settings.read 'pinned')
+    @color_select.val(@settings.read 'color')
+    @pin_check.attr('checked', @settings.read 'pinned')

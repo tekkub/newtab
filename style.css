@@ -9,20 +9,13 @@ body {
   color: white;
 }
 
-#username {
-  font-size: 10px;
-  position: fixed;
-  top: 5px;
-  left: 5px;
-  color: #ccc;
-}
-
-#syncing {
+#cached-warning {
+  display: none;
   font-size: 10px;
   position: fixed;
   top: 5px;
   right: 5px;
-  color: #3c3;
+  color: #c33;
 }
 
 #settings-toggle {

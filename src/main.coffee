@@ -18,28 +18,29 @@ if localStorage['cachedRows']
   $('#cached-rows a').click Button.onClick
 
 
-Settings.initialize
-  key: 'f0nb7har6a4aar0'
-  ->
-    console.log 'Loading dropbox data'
+chrome.runtime.getBackgroundPage (bg_window) ->
+  return $('#cached-warning').show() unless bg_window.Settings.bookmarks
 
-    chrome.bookmarks.getTree (tree) ->
-      mytree = null
-      rows = ''
-      $.each tree[0].children[1].children, (i,subtree) ->
-        mytree = subtree if subtree.title == 'newtab'
+  console.log 'Loading dropbox data'
 
-      $.each mytree.children, (i,subtree) ->
-        row = $('<ul>')
-        $('body').append row
+  Button.settings = bg_window.Settings
 
-        $.each subtree.children, (i,bookmark) ->
-          butt = new Button bookmark
-          row.append butt.li
+  chrome.bookmarks.getTree (tree) ->
+    mytree = null
+    rows = ''
+    $.each tree[0].children[1].children, (i,subtree) ->
+      mytree = subtree if subtree.title == 'newtab'
 
-        rows += row[0].outerHTML
+    $.each mytree.children, (i,subtree) ->
+      row = $('<ul>')
+      $('body').append row
 
-      localStorage['cachedRows'] = rows
-      $('#cached-rows').remove()
-      $('#settings-toggle').show()
-      $('#syncing').remove()
+      $.each subtree.children, (i,bookmark) ->
+        butt = new Button bookmark
+        row.append butt.li
+
+      rows += row[0].outerHTML
+
+    localStorage['cachedRows'] = rows
+    $('#cached-rows').remove()
+    $('#settings-toggle').show()

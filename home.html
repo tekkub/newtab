@@ -3,16 +3,15 @@
   <title>New Tab</title>
   <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
   <script src="vendor/jquery.min.js" type="text/javascript"></script>
-  <script src="vendor/jquery.parse.js" type="text/javascript"></script>
-  <script src="vendor/dropbox-datastores.js" type="text/javascript"></script>
 </head>
 <body id="links">
-  <span id='username'></span>
-  <span id='syncing'>Syncing with dropbox</span>
+  <span id='cached-warning'>
+    Dropbox data unavailable<br>
+    using cached page
+  </span>
   <a href='#' id='settings-toggle'>Settings</a>
   <a href='#' id='purge-storage' class='settings'>Reset localStorage</a>
-  <script src="js/model/button.js" type="text/javascript"></script>
-  <script src="js/model/settings.js" type="text/javascript"></script>
+  <script src="js/models/button.js" type="text/javascript"></script>
   <script src="js/main.js" type="text/javascript"></script>
 </body>
 </html>
