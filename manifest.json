@@ -3,6 +3,9 @@
   "description": "My newtab page",
   "version": "0.19",
   "manifest_version": 2,
+  "icons": {
+    "128": "img/icon-128.png"
+  },
   "chrome_url_overrides": {
     "newtab": "home.html"
   },
@@ -11,5 +14,20 @@
     "bookmarks",
     "storage",
     "https://api.parse.com/*"
-  ]
+  ],
+  "browser_action": {
+    "default_icon": {
+      "19": "img/icon-128.png"
+    },
+    "default_title": "Loading Dropbox..."
+  },
+  "background": {
+    "scripts": [
+      "vendor/jquery.min.js",
+      "vendor/dropbox-datastores.js",
+      "js/models/settings.js",
+      "js/background.js"
+    ]
+    // "persistent": false
+  }
 }

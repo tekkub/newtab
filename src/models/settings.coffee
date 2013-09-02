@@ -11,8 +11,7 @@ class @Settings
     'pink'
   ]
 
-  @initialize: (dropboxCreds, callback) ->
-    Settings._initCallback = callback
+  @initialize: (dropboxCreds) ->
     unless localStorage['db-version'] == '2'
       console.log 'Resetting localStorage'
       localStorage.clear()
@@ -23,8 +22,13 @@ class @Settings
       console.log err.response.error
       alert 'Dropbox error!  See javascript console for details.'
 
+    chrome.browserAction.setTitle title: 'Signing in...'
+    chrome.browserAction.setBadgeText text: '...'
+
     dropbox.authenticate interactive: false, (err, client) ->
       if err
+        chrome.browserAction.setTitle title: 'Dropbox error'
+        chrome.browserAction.setBadgeText text: '!'
         alert "Error authenticating: #{err}"
         return false
 
@@ -35,19 +39,26 @@ class @Settings
         console.log 'Triggering interactive login'
         dropbox.authenticate (err, client) ->
           if err
+            chrome.browserAction.setTitle title: 'Dropbox error'
+            chrome.browserAction.setBadgeText text: '!'
             alert "Error authenticating: #{err}"
             return false
 
           if client.isAuthenticated()
             Settings.finishAuth client
           else
+            chrome.browserAction.setTitle title: 'Not signed in'
+            chrome.browserAction.setBadgeText text: '?'
             alert "Dropbox is not authed!"
             return false
 
 
   @finishAuth: (client) ->
+    chrome.browserAction.setTitle title: 'Signed in'
+    chrome.browserAction.setBadgeText text: ''
     client.getAccountInfo (err, data) ->
-      $('#username').text("#{data['name']} <#{data['email']}>")
+      chrome.browserAction.setTitle
+        title: "Signed in as #{data.name} <#{data.email}>"
 
     datastoreManager = client.getDatastoreManager()
     console.log 'Requesting datastore'
@@ -60,8 +71,6 @@ class @Settings
 
       Settings.datastore = datastore
       Settings.bookmarks = datastore.getTable 'bookmarks-dev'
-
-      Settings._initCallback()
 
 
   constructor: (@bookmark) ->
