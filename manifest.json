@@ -29,5 +29,8 @@
       "js/background.js"
     ]
     // "persistent": false
-  }
+  },
+  "web_accessible_resources": [
+    "chrome_oauth_receiver.html"
+  ]
 }
