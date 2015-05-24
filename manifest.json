@@ -25,7 +25,12 @@
     "scripts": [
       "vendor/jquery.min.js",
       "vendor/dropbox-datastores.js",
+      "bower_components/firebase/firebase.js",
+      "js/models/browser-action.js",
       "js/models/settings.js",
+      "js/models/storage-dropbox.js",
+      "js/models/storage-firebase.js",
+      "js/models/storage.js",
       "js/background.js"
     ]
     // "persistent": false

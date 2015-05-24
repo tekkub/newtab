@@ -11,7 +11,7 @@ $('#settings-toggle').click ->
 
 $('#dropbox-signout').click ->
   chrome.runtime.getBackgroundPage (bg_window) ->
-    bg_window.Settings.client.signOut()
+    bg_window.DropboxStorage.client.signOut()
   return false
 
 
@@ -25,7 +25,7 @@ if localStorage['cachedRows']
 
 
 chrome.runtime.getBackgroundPage (bg_window) ->
-  return $('#cached-warning').show() unless bg_window.Settings.bookmarks
+  return $('#cached-warning').show() unless bg_window.DropboxStorage.bookmarks
 
   console.log 'Loading dropbox data'
 
