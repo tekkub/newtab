@@ -7,7 +7,7 @@ class @FirebaseStorage
     firebase = new Firebase("https://brilliant-torch-2365.firebaseio.com/bookmarks")
     @record = firebase.child @title()
 
-    @record.on "value", (dataSnapshot) =>
+    @record.once "value", (dataSnapshot) =>
       unless dataSnapshot.val()
         @record.set
           legacyID: @bookmark.title
