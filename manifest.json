@@ -31,6 +31,7 @@
       "js/models/settings.js",
       "js/models/storage-dropbox.js",
       "js/models/storage-firebase.js",
+      "js/models/storage-localstorage.js",
       "js/models/storage.js",
       "js/background.js"
     ]
