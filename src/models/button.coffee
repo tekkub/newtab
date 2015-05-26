@@ -129,13 +129,15 @@ class @Button
 
   applySettings: ->
     @link.attr('href', @bookmark.url)
-      .attr('class', @settings.read 'color')
+    @settings.read "color", (value) =>
+      @link.attr("class", value)
+      @color_select.val(value)
 
-    img = @settings.read 'rawimg'
-    if img
-      @img_div.attr('class', "link-image")
-        .css('background', "url(#{img})")
-        .css('background-size', "100%")
+    @settings.read "rawimg", (value) =>
+      if value
+        @img_div.attr("class", "link-image")
+          .css("background-image", "url(#{value})")
+          .css("background-size", "100%")
 
-    @color_select.val(@settings.read 'color')
-    @pin_check.attr('checked', @settings.read 'pinned')
+    @settings.read "pinned", (value) =>
+      @pin_check.attr("checked", value)

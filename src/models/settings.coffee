@@ -27,8 +27,8 @@ class @Settings
     #   @record = Settings.bookmarks.insert newData
 
 
-  read: (key) ->
-    @storage.read key
+  read: (key, callback) ->
+    @storage.read key, callback
 
 
   save: (key, value) ->

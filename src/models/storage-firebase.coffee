@@ -1,12 +1,12 @@
 class @FirebaseStorage
   @initialize: ->
-    # @firebase = new Firebase("https://brilliant-torch-2365.firebaseio.com/bookmarks")
     console.log "FirebaseStorage.initialize"
+    firebase = new Firebase("https://brilliant-torch-2365.firebaseio.com/bookmarks")
+    FirebaseStorage.client = firebase
 
 
   constructor: (@bookmark) ->
-    firebase = new Firebase("https://brilliant-torch-2365.firebaseio.com/bookmarks")
-    @record = firebase.child @title()
+    @record = FirebaseStorage.client.child @title()
 
     @record.once "value", (dataSnapshot) =>
       unless dataSnapshot.val()
@@ -16,12 +16,18 @@ class @FirebaseStorage
           color: Settings.COLORS[0]
           pinned: false
 
-  read: (key) ->
-    @record.get key
+  read: (key, callback) ->
+    @record.once "value", (dataSnapshot) =>
+      if data = dataSnapshot.val()
+        console.log "Received data", key, data
+        callback data[key]
 
 
   save: (key, value) ->
     # @record.update('User ' + key + ' says ' + value)
+    newdata = {}
+    newdata[key] = value
+    @record.update(newdata)
 
   title: ->
     @bookmark.title.replace /[ #\$\[\]\.]/g, "_"

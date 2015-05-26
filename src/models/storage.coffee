@@ -1,8 +1,8 @@
 class @Storage
   @initialize: (dropboxCreds) ->
     console.log "Storage.initialize"
+    FirebaseStorage.initialize()
     DropboxStorage.initialize dropboxCreds
-    FirebaseStorage.initialize
 
     unless localStorage['db-version'] == '2'
       console.log 'Resetting localStorage'
@@ -15,8 +15,9 @@ class @Storage
     @fb_record = new FirebaseStorage @bookmark
 
 
-  read: (key) ->
-    @db_record.read key
+  read: (key, callback) ->
+    console.log "Requesting FB data", key
+    @fb_record.read key, callback
 
 
   save: (key, value) ->
