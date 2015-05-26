@@ -24,7 +24,6 @@ class @FirebaseStorage
 
 
   save: (key, value) ->
-    # @record.update('User ' + key + ' says ' + value)
     newdata = {}
     newdata[key] = value
     @record.update(newdata)
