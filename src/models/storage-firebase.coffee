@@ -1,6 +1,7 @@
 class @FirebaseStorage
   @initialize: ->
     # @firebase = new Firebase("https://brilliant-torch-2365.firebaseio.com/bookmarks")
+    console.log "FirebaseStorage.initialize"
 
 
   constructor: (@bookmark) ->

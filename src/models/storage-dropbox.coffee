@@ -1,5 +1,6 @@
 class @DropboxStorage
   @initialize: (dropboxCreds) ->
+    console.log "DropboxStorage.initialize"
     dropbox = new Dropbox.Client dropboxCreds
     DropboxStorage.client = dropbox
     dropbox.onError.addListener (err) ->

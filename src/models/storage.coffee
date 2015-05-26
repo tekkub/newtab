@@ -1,5 +1,6 @@
 class @Storage
   @initialize: (dropboxCreds) ->
+    console.log "Storage.initialize"
     DropboxStorage.initialize dropboxCreds
     FirebaseStorage.initialize
 
