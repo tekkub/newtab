@@ -128,7 +128,7 @@ class @Button
 
 
   applySettings: ->
-    @link.attr('href', @bookmark.url)
+    @link.attr("href", @bookmark.url)
     @settings.read "color", (value) =>
       @link.attr("class", value)
       @color_select.val(value)

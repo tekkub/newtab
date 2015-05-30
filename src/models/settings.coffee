@@ -1,14 +1,14 @@
 class @Settings
   @COLORS = [
-    'silver'
-    'black'
-    'purple'
-    'blue'
-    'green'
-    'yellow'
-    'orange'
-    'red'
-    'pink'
+    "silver"
+    "black"
+    "purple"
+    "blue"
+    "green"
+    "yellow"
+    "orange"
+    "red"
+    "pink"
   ]
 
   constructor: (@bookmark) ->
