@@ -19,7 +19,6 @@ class @FirebaseStorage
   read: (key, callback) ->
     @record.once "value", (dataSnapshot) =>
       if data = dataSnapshot.val()
-        console.log "Received data", key, data
         callback data[key]
 
 

@@ -27,10 +27,10 @@ if localStorage['cachedRows']
 chrome.runtime.getBackgroundPage (bg_window) ->
   return $("#cached-warning").show() unless bg_window.DropboxStorage.bookmarks
 
-  console.log "Loading dropbox data"
 
   Button.settings = bg_window.Settings
 
+  console.log "Loading bookmarks"
   chrome.bookmarks.getTree (tree) ->
     mytree = null
     rows = ""

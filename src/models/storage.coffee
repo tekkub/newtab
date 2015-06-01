@@ -16,9 +16,7 @@ class @Storage
     @ls_record.read key, (value) =>
       callback value
 
-    console.log "Requesting FB data", key
     @fb_record.read key, (value) =>
-      console.log "Received FB data", key
       @ls_record.save key, value
       callback value
 
