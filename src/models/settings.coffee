@@ -20,4 +20,4 @@ class @Settings
 
 
   save: (key, value) ->
-    @storage.set key, value
+    @storage.save key, value

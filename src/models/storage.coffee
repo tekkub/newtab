@@ -25,3 +25,5 @@ class @Storage
 
   save: (key, value) ->
     @db_record.save key, value
+    @ls_record.save key, value
+    @fb_record.save key, value
