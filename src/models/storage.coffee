@@ -1,14 +1,12 @@
 class @Storage
-  @initialize: (dropboxCreds) ->
+  @initialize: ->
     console.log "Storage.initialize"
     LocalstorageStorage.initialize()
     FirebaseStorage.initialize()
-    DropboxStorage.initialize dropboxCreds
 
 
   constructor: (@bookmark) ->
     @ls_record = new LocalstorageStorage @bookmark
-    @db_record = new DropboxStorage @bookmark
     @fb_record = new FirebaseStorage @bookmark
 
 
@@ -22,6 +20,5 @@ class @Storage
 
 
   save: (key, value) ->
-    @db_record.save key, value
     @ls_record.save key, value
     @fb_record.save key, value

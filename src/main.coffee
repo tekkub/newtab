@@ -9,12 +9,6 @@ $('#settings-toggle').click ->
   return false
 
 
-$('#dropbox-signout').click ->
-  chrome.runtime.getBackgroundPage (bg_window) ->
-    bg_window.DropboxStorage.client.signOut()
-  return false
-
-
 if localStorage['cachedRows']
   console.log 'Loading cached page'
   cachedRows = $('<div>')
@@ -25,9 +19,6 @@ if localStorage['cachedRows']
 
 
 chrome.runtime.getBackgroundPage (bg_window) ->
-  return $("#cached-warning").show() unless bg_window.DropboxStorage.bookmarks
-
-
   Button.settings = bg_window.Settings
 
   console.log "Loading bookmarks"

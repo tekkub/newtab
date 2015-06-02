@@ -9,15 +9,6 @@ body {
   color: white;
 }
 
-#cached-warning {
-  display: none;
-  font-size: 10px;
-  position: fixed;
-  top: 5px;
-  right: 5px;
-  color: #c33;
-}
-
 #settings-toggle {
   display: none;
   font-size: 10px;
