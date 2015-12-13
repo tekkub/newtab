@@ -6,9 +6,18 @@ class @Button
 
   @onClick: (event) ->
     target = event.currentTarget
-    pinned = $(target).next().find(':checkbox')
+    pinned = $(target).next().find(':checkbox').first()
+    incog = $(target).next().find(':checkbox').last()
 
-    if pinned.attr('checked') == 'checked'
+    if incog.attr('checked') == 'checked'
+    	chrome.windows.create
+        "url": $(target).attr("href")
+        "type": "normal"
+        "incognito": true
+        "focused": true
+      return false
+
+    else if pinned.attr('checked') == 'checked'
       if event.which == 1 && !event.metaKey && !event.shiftKey
         # We have a normal click, pin this tab
         chrome.tabs.getCurrent (tab) ->
@@ -69,6 +78,16 @@ class @Button
       .change(@onPinChange)
       .appendTo(@pin_label)
 
+    @incog_label = $('<label>')
+      .text('Incognito')
+      .attr('class', 'incoglabel')
+      .appendTo(@setting_div)
+
+    @incog_check = $('<input>')
+      .attr('type', 'checkbox')
+      .change(@onIncogChange)
+      .appendTo(@incog_label)
+
 
   onColorChange: (event) =>
     val = $(event.target).val()
@@ -79,6 +98,11 @@ class @Button
   onPinChange: (event) =>
     checked = $(event.target).attr('checked') == 'checked'
     @settings.save 'pinned', checked
+
+
+  onIncogChange: (event) =>
+    checked = $(event.target).attr('checked') == 'checked'
+    @settings.save 'incognito', checked
 
 
   onDragEnter: (event) ->
@@ -141,3 +165,6 @@ class @Button
 
     @settings.read "pinned", (value) =>
       @pin_check.attr("checked", value)
+
+    @settings.read "incognito", (value) =>
+      @incog_check.attr("checked", value)
