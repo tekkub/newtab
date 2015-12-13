@@ -26,16 +26,11 @@
     "scripts": [
       "vendor/jquery.min.js",
       "bower_components/firebase/firebase.js",
-      "js/models/browser-action.js",
       "js/models/settings.js",
       "js/models/storage-firebase.js",
       "js/models/storage-localstorage.js",
       "js/models/storage.js",
       "js/background.js"
     ]
-    // "persistent": false
-  },
-  "web_accessible_resources": [
-    "chrome_oauth_receiver.html"
-  ]
+  }
 }
