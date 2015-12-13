@@ -18,7 +18,7 @@ class @Button
       # Mod-click or middle, don't lose focus or kill this tab
       chrome.tabs.create
         'pinned': true
-        'selected': false
+        'active': false
         'url': $(target).attr("href")
 
       return false
